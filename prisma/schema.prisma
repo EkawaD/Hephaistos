@@ -1,0 +1,150 @@
+// ****** BASE *******
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int          @id @default(autoincrement())
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  profil        Profil?
+  diplomes      Diplome[]
+  experiences   Experience[]
+  projects      Project[]
+  skills        Skill[]
+  hobbies       Hobby[]
+  lettres       Lettre[]
+  refs          Ref[]
+  accounts      Account[]
+  sessions      Session[]
+}
+
+// ****** NEXT AUTH *********
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ****** CV *******
+
+model Profil {
+  id        Int     @id @default(autoincrement())
+  user      User    @relation(fields: [userId], references: [id])
+  name      String
+  color     String  @default("#008080")
+  avatar    String  @default("/avatar.jpg")
+  firstname String
+  address   String
+  intro     String
+  website   String
+  tel       String
+  mail      String
+  linkedin  String
+  github    String?
+  userId    Int     @unique
+}
+
+model Lettre {
+  id      Int     @id @default(autoincrement())
+  title   String
+  content String
+  objet   String?
+  user    User    @relation(fields: [userId], references: [id])
+  userId  Int
+}
+
+model Ref {
+  id     Int    @id @default(autoincrement())
+  file   String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+model Diplome {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  title       String
+  diplomaDate DateTime?
+  school      String
+  place       String?
+  description String?
+  userId      Int
+}
+
+model Experience {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  entreprise  String
+  poste       String
+  place       String?
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  userId      Int
+}
+
+model Project {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id])
+  image       String
+  title       String
+  description String
+  github      String?
+  demo        String?
+  tags        String[] @default([""])
+  userId      Int
+}
+
+model Skill {
+  id     Int     @id @default(autoincrement())
+  user   User    @relation(fields: [userId], references: [id])
+  skill  String
+  tech   Boolean @default(true)
+  userId Int
+}
+
+model Hobby {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  name   String
+  userId Int
+}
