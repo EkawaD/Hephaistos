@@ -15,8 +15,6 @@ import LettreM from '../../components/LM'
 export default function Profil({ data }: { data: User }) {
 
 
-    // const session = useSession()
-
     const [user, setUser] = useState<User>(data);
     const [opened, setOpened] = useState(false)
     const [lm, setLm] = useState<Lettre>()
@@ -25,7 +23,6 @@ export default function Profil({ data }: { data: User }) {
     const [shouldRender, setShouldRender] = useState(false)
 
     useEffect(() => {
-        // setUser(session.data ? session.data.user as User : undefined)
         setShouldRender(false)
     }, [shouldRender])
 
@@ -62,6 +59,9 @@ export default function Profil({ data }: { data: User }) {
             </div>
 
             <h1 className="tittle"> Profil Demo</h1>
+            <div className="signout_button" >
+                <Button color="dark" variant="outline" size="xs" component='a' href="/"> Se déconnecter </Button>
+            </div>
             <div className="profil" >
 
 
@@ -93,13 +93,10 @@ export default function Profil({ data }: { data: User }) {
 
 }
 
-
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const res = await fetch("http://localhost:3000/api/user/1")
+    const res = await fetch("http://localhost:3000/api/cv/1")
     const data = await res.json()
 
     return {

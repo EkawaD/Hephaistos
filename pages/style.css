@@ -8,7 +8,7 @@
     color: white;
     gap: 1rem;
     height: 100vh;
-    background-color: black;
+    background-color: rgb(16, 39, 59);
 }
 
 
@@ -74,4 +74,9 @@
     font-weight: bold;
     color: var(--primary);
     margin: 2rem 0;
+}
+
+.signout_button {
+   display: flex;
+   justify-content: center;
 }

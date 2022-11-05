@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const profil = await prisma.user.findUnique({
                 where: { id: Number(id) },
                 include: {
-                    profil: true,
+                    profil: true, lettres: true, refs: true,
                     experiences: true, diplomes: true, skills: true,
                     projects: true, hobbies: true
                 }

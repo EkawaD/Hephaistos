@@ -7,9 +7,9 @@ import Image from "next/image"
 import CV from '../components/CV';
 import ProfilForm from '../components/ProfilForm';
 import LettreM from '../components/LM'
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 // import ClassicCV from '../components/pages/profil/CV/ClassicCV';
-// import { useSession } from 'next-auth/react';
+
 
 
 
@@ -18,6 +18,7 @@ export default function Profil() {
 
 
     const session = useSession()
+
 
     const [user, setUser] = useState<User>();
     const [opened, setOpened] = useState(false)
@@ -58,7 +59,6 @@ export default function Profil() {
 
         <>
 
-
             <div className="cvForm">
                 <Select ref={templateSelect} data={Object.keys(templates)} label="Template CV" />
                 <Select ref={refSelect} data={user.lettres.map((l: Lettre) => l.title)} label="Lettre de motivation" />
@@ -69,7 +69,12 @@ export default function Profil() {
             <div className="discord_avatar">
                 <Image alt="avatar" width={50} height={50} src={user.image}></Image>
                 <p> {user.name} </p>
+
             </div>
+            <div className="signout_button" >
+                <Button color="dark" variant="outline" size="xs" onClick={() => signOut()}> Se déconnecter </Button>
+            </div>
+
             <div className="profil" >
 
 
