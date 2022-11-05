@@ -1,15 +1,8 @@
 
 :root {
-  --clr-accent-500: hsl(12, 60%, 45%);
-  --clr-accent-400: hsl(12, 88%, 59%);
-  --clr-accent-300: hsl(12, 88%, 75%);
-  --clr-accent-100: hsl(13, 100%, 96%);
-
-  --clr-primary-400: hsl(228, 39%, 23%);
-
-  --clr-neutral-900: hsl(232, 12%, 13%);
-  --clr-neutral-200: hsl(0 0% 97%);
-  --clr-neutral-100: hsl(0 0% 100%);
+  --primary: teal;
+  --secondary: black;
+  --accent: #5865f2;
 
   --ff-primary: "Be Vietnam Pro", sans-serif;
 
@@ -50,7 +43,6 @@
     --fs-body: var(--fs-500);
     --fs-primary-heading: var(--fs-900);
     --fs-secondary-heading: var(--fs-800);
-
     --fs-nav: var(--fs-300);
   }
 }
@@ -94,7 +86,7 @@ img,
 picture,
 svg {
   max-width: 100%;
-  display: block;
+  display: inline-block;
 }
 /* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {

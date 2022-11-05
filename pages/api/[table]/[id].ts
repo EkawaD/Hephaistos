@@ -1,15 +1,18 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { unstable_getServerSession } from 'next-auth'
 import { loadSubscribers } from '.'
 import { callSubscribers } from '../../../middleware/handlers'
+import { authOptions } from '../auth/[...nextauth]'
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { query: { table, id }, method } = req
 
-  // const session = await unstable_getServerSession(req, res, authOptions)
-  // const user = session.user as GuildMember
-  // const isMember = user.isMember
-  if (id) {
+  const session = await unstable_getServerSession(req, res, authOptions)
+
+
+  if (session) {
+    
     loadSubscribers()
     const call = callSubscribers(table, method)
     try {
@@ -19,9 +22,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(500).json({ error : error.toString() })
     }
   } else {
-    res.status(401).json({error: "You must be authenticated to access this ressource"})
+    res.status(400).json({error: "You must be authenticated to access this endpoint"})
   }
-  res.end()
 
 }
 

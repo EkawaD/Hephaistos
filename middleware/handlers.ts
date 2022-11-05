@@ -31,7 +31,7 @@ const DEFAULT_CALL = {
     }, 
 }
 
-export const subscribeToApi = (table: string | string[], method: string, callback: () => {}) => {
+export const subscribeToApi = (table: string | string[], method: string, callback: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) => {
     const call = `${table}_${method}`
     API_CALL[call] = callback
 }

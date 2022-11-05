@@ -1,11 +1,16 @@
 import Head from "next/head";
 import { AppProps } from "next/app";
+import { pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`
+
 
 
 import './style.css'
+import { NotificationsProvider } from "@mantine/notifications";
+import { SessionProvider } from "next-auth/react";
 
 export default function App(props: AppProps) {
-  const { Component, pageProps } = props;
+  const { Component, pageProps: { session, ...pageProps } } = props;
 
   return (
     <>
@@ -18,9 +23,13 @@ export default function App(props: AppProps) {
         />
       </Head>
 
-      olorScheme}}
-        >
-      <Component {...pageProps} />
+      <SessionProvider session={session}>
+
+
+        <NotificationsProvider position="bottom-right" zIndex={2077} limit={5}>
+          <Component {...pageProps} />
+        </NotificationsProvider>
+      </SessionProvider>
 
     </>
   );

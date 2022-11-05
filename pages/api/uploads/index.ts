@@ -2,6 +2,8 @@ import nextConnect from 'next-connect';
 import fs from 'fs';
 import { upload, NextConnectApiRequest, outputFolderName, ResponseData } from '../../../middleware/multer';
 import { NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 
 const apiRoute = nextConnect({
@@ -17,10 +19,16 @@ const apiRoute = nextConnect({
 apiRoute.use(upload.array('theFiles'));
 
 
-apiRoute.post((req: NextConnectApiRequest, res: NextApiResponse<ResponseData>) => {
-  const filenames = fs.readdirSync(outputFolderName);
-  const images = filenames.map((name) => name);
-  res.status(200).json({ data: images });
+apiRoute.post(async (req: NextConnectApiRequest, res: NextApiResponse<ResponseData>) => {
+  const session = await unstable_getServerSession(req, res, authOptions)
+  if (session) {
+
+    const filenames = fs.readdirSync(outputFolderName);
+    const images = filenames.map((name) => name);
+    res.status(200).json({ data: images });
+  } else {
+    res.status(400).json({error: "You must be authenticated to access this endpoint"})
+  }
 });
 
 export const config = {
