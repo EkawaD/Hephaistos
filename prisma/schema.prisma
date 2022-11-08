@@ -1,7 +1,8 @@
 // ****** BASE *******
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -69,16 +70,16 @@ model VerificationToken {
 model Profil {
   id        Int     @id @default(autoincrement())
   user      User    @relation(fields: [userId], references: [id])
-  name      String
+  name      String  @default("Nom")
   color     String  @default("#008080")
   avatar    String  @default("/avatar.jpg")
-  firstname String
-  address   String
-  intro     String
-  website   String
-  tel       String
-  mail      String
-  linkedin  String
+  firstname String  @default("Prénom")
+  address   String  @default("Chez moi")
+  intro     String  @default("Bienvenue sur mon CV")
+  website   String?
+  tel       String?
+  mail      String?
+  linkedin  String?
   github    String?
   userId    Int     @unique
 }
@@ -138,7 +139,7 @@ model Skill {
   id     Int     @id @default(autoincrement())
   user   User    @relation(fields: [userId], references: [id])
   skill  String
-  tech   Boolean @default(true)
+  tech   Boolean @default(false)
   userId Int
 }
 

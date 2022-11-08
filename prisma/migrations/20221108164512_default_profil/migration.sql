@@ -1,0 +1,9 @@
+-- AlterTable
+ALTER TABLE "Profil" ALTER COLUMN "name" SET DEFAULT 'Nom',
+ALTER COLUMN "firstname" SET DEFAULT 'Prénom',
+ALTER COLUMN "address" SET DEFAULT 'Chez moi',
+ALTER COLUMN "intro" SET DEFAULT 'Bienvenue sur mon CV',
+ALTER COLUMN "website" DROP NOT NULL,
+ALTER COLUMN "tel" DROP NOT NULL,
+ALTER COLUMN "mail" DROP NOT NULL,
+ALTER COLUMN "linkedin" DROP NOT NULL;

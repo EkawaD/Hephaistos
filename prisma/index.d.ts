@@ -1,19 +1,16 @@
 type User = {
-    id?: string
+    id?: string | number
     email: string,
     name: string, 
     image: string,
-    profil: Profil,
-    experiences: Experience[],
-    diplomes: Diplome[],
-    skills: Skill[],
-    hobbies: Hobby[],
-    lettres: Lettre[],
-    refs: Ref[], 
-    todos: Todo[],
-    projects: Project[],
-    recipes: Recipe[],
-    mealplans: MealPlan[],
+    profil?: Profil,
+    experiences?: Experience[],
+    diplomes?: Diplome[],
+    skills?: Skill[],
+    hobbies?: Hobby[],
+    lettres?: Lettre[],
+    refs?: Ref[], 
+    projects?: Project[],
   }
 type Lettre = {
     id?: string, 
@@ -76,7 +73,6 @@ type Skill = {
   userId?: number,
   skill: string,
   tech: boolean,
-  category: "known" | "fluent" | "interested" | "tool" | "hobby"
 }
 type Hobby = {
   id?: string,

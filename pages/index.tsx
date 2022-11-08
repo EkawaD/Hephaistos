@@ -11,12 +11,12 @@ export default function Home() {
   return (
     <>
       <div className="home">
-        <h1>Bienvenue sur Héphaïstos, votre générateur de CV automatique !</h1>
+        <h1>Bienvenue sur Héphaïstos votre générateur de CV automatique !</h1>
         <Button
           color="gray"
           className="discordButton"
           size="xl"
-          onClick={() => signIn("discord", { callbackUrl: 'http://localhost:3000/profil' })}
+          onClick={() => signIn("discord", { callbackUrl: "/profil" })}
         >
           <FaDiscord size={30} className="icon" />Se connecter avec Discord
         </Button>

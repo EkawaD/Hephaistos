@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr 1fr",
         alignItems: "center",
-        ["button"]: {
+        [" > button"]: {
             width: "200px"
         },
     },

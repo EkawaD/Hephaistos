@@ -4,10 +4,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { prisma } from "../../../middleware/prisma";
 
 
-
-
-
-
 export const authOptions = {
     adapter: PrismaAdapter(prisma),
     providers: [
@@ -19,32 +15,54 @@ export const authOptions = {
       ],
       pages: {
         signIn: '/',
-        error: '/error'
     },
-    callbacks: {
-        
-        async jwt({token, user, account, profile, isNewUser}) {
-            user && (token.user = user)
-            return token
-          },
+  callbacks: {
       
-        async session({ session, token, user }) {
-          const userWithProfil = await prisma.user.findUnique({
-              where: { id: Number(user.id) },
-              include: {
-                profil: true, lettres: true, refs: true, 
-                experiences: true, diplomes: true, skills: true, projects: true, hobbies: true,
-              }
-            })
-              
-            session = {
-              ...session,
-              user: userWithProfil
-            }
-            
-              return session
+    async signIn({ user, account, profile, email, credentials }) {
+      const currentUser = await prisma.user.findUnique({
+        where: { id: Number(user.id)},
+        include: {
+          profil: true
         }
+      }) 
+      
+      if (currentUser.profil !== null) return true
+      const newUser = await prisma.user.update({
+            where: { id: Number(user.id) },
+            data: {
+              profil: {
+                create: {
+                  name: "Nom"
+                }
+              }
+            }
+      })
+      return true
+      
+      },
+        
+      async jwt({token, user, account, profile, isNewUser}) {
+          user && (token.user = user)
+          return token
+        },
+      
+      async session({ session, token, user }) {
+        const userWithProfil = await prisma.user.findUnique({
+            where: { id: Number(user.id) },
+            include: {
+              profil: true, lettres: true, refs: true, 
+              experiences: true, diplomes: true, skills: true, projects: true, hobbies: true,
+            }
+          })
+            
+          session = {
+            ...session,
+            user: userWithProfil
+          }
+          
+            return session
       }
+  }
 }
 
 export default NextAuth(authOptions)

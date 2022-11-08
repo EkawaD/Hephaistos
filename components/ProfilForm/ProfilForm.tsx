@@ -50,7 +50,19 @@ export default function ProfilForm({ user }: { user: User }) {
     }
 
     const form = useForm({
-        initialValues: user.profil
+        initialValues: user.profil ||
+        {
+            avatar: "",
+            color: "",
+            name: "",
+            firstname: "",
+            tel: "",
+            mail: "",
+            linkedin: "",
+            github: "",
+            website: "",
+            intro: "",
+        }
     })
 
     const experienceSchema = {
@@ -70,7 +82,6 @@ export default function ProfilForm({ user }: { user: User }) {
     }
     const skillSchema = {
         skill: { type: "text", label: "Compétence" },
-        category: { type: "select", label: "Catégorie", data: ["known", "fluent", "interested", "tool", "hobby"] },
         tech: { type: "checkbox", label: "Technique ?" },
     }
     const hobbySchema = {
