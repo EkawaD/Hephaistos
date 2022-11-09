@@ -45,12 +45,11 @@ export default function Profil({ data }: { data: User }) {
         // classic: <ClassicCV />
     }
 
+
     if (!user) return <div>Loading ...</div>
     return (
 
         <>
-
-
             <div className="cvForm">
                 <Select ref={templateSelect} data={Object.keys(templates)} label="Template CV" />
                 <Select ref={refSelect} data={user.lettres.map((l: Lettre) => l.title)} label="Lettre de motivation" />
@@ -81,6 +80,7 @@ export default function Profil({ data }: { data: User }) {
                                 <Document key={key} file={ref}>
                                     <Page pageNumber={1} width={950} />
                                 </Document>
+
                             )}
                         </>
                     </div>

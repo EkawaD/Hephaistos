@@ -6,9 +6,7 @@ import styles from "./ProfilForm.module.css"
 import Form from "../Crud/Form"
 import CrudTable from "../Crud/CrudTable"
 import Input from "../Crud/Form/Input"
-import axios from "axios"
 import { useRouter } from "next/router";
-
 
 
 
@@ -18,7 +16,14 @@ export default function ProfilForm({ user }: { user: User }) {
     const isDemo = router.pathname.startsWith("/demo")
 
     const handleFile = async (formData) => {
-        await axios.post("/api/uploads", formData)
+
+        try {
+            const response = await fetch('/api/uploads', { method: "POST", body: formData });
+            console.log(response)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleSubmit = async (profil: Profil) => {
@@ -106,7 +111,6 @@ export default function ProfilForm({ user }: { user: User }) {
     return (
         <>
             <div className={styles.container}>
-
 
                 <div className={styles.forms}>
                     <Form form={form} handler={handleSubmit} className={styles.profil}>

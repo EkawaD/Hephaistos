@@ -1,6 +1,9 @@
 import { withAuth } from 'next-auth/middleware';
 
 
+export const config = {
+    matcher: ['/', '/((?!api/).*)'],
+}
 const publicFileRegex = /\.(.*)$/;
 const anonymousRoutes = ['/', '/demo/profil']; // The whitelisted routes
 

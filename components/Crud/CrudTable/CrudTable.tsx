@@ -7,6 +7,8 @@ import Input from '../Form/Input';
 import styles from "../Crud.module.css"
 
 
+global.structuredClone = (val) => JSON.parse(JSON.stringify(val))
+
 type Item = {
     id?: string | number
 }
