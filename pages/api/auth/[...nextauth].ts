@@ -15,36 +15,11 @@ export const authOptions = {
       ],
       pages: {
         signIn: '/',
-    },
+  },
   callbacks: {
       
-    async signIn({ user, account, profile, email, credentials }) {
-      const currentUser = await prisma.user.findUnique({
-        where: { id: Number(user.id)},
-        include: {
-          profil: true
-        }
-      }) 
-      
-      if (currentUser.profil !== null) return true
-      const newUser = await prisma.user.update({
-            where: { id: Number(user.id) },
-            data: {
-              profil: {
-                create: {
-                  name: "Nom"
-                }
-              }
-            }
-      })
-      return true
-      
-      },
-        
-      async jwt({token, user, account, profile, isNewUser}) {
-          user && (token.user = user)
-          return token
-        },
+
+
       
       async session({ session, token, user }) {
         const userWithProfil = await prisma.user.findUnique({

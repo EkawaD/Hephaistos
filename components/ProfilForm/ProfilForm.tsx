@@ -29,14 +29,26 @@ export default function ProfilForm({ user }: { user: User }) {
     const handleSubmit = async (profil: Profil) => {
         try {
             if (!isDemo) {
-                const res = await fetch(`/api/profil/${user.profil.id}`, {
-                    method: "PUT",
-                    headers: {
-                        Authorization: "application/json",
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ ...profil, userId: user.id })
-                });
+                if (user.profil !== null) {
+
+                    const res = await fetch(`/api/profil/${user.profil.id}`, {
+                        method: "PUT",
+                        headers: {
+                            Authorization: "application/json",
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ ...profil, userId: user.id })
+                    });
+                } else {
+                    const res = await fetch(`/api/profil`, {
+                        method: "POST",
+                        headers: {
+                            Authorization: "application/json",
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ ...profil, userId: user.id })
+                    });
+                }
             }
             showNotification({
                 title: 'Great success 😎 !',

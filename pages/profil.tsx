@@ -54,6 +54,7 @@ export default function Profil() {
         // classic: <ClassicCV />
     }
 
+
     if (!user) return <div>Loading ...</div>
     return (
 
