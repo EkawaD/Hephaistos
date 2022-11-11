@@ -4,16 +4,15 @@ import { prisma } from '../../../middleware/prisma'
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { query: { id }, method } = req
+  const { method } = req
 
 
 
     if (method !== "GET") res.status(400).json({ error: `Method ${method} not allowed` })
-    if (Number(id) !== 1) res.status(400).json({ error: `You can't have acces to this ressource` })
     else {
         try {
             const profil = await prisma.user.findUnique({
-                where: { id: Number(id) },
+                where: { email: "steo.ederhy@gmail.com" },
                 include: {
                     profil: true, lettres: true, refs: true,
                     experiences: true, diplomes: true, skills: true,
