@@ -96,7 +96,7 @@ export default function Profil({ data }: { data: User }) {
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const res = await fetch("http://localhost:3000/api/cv/demo")
+    const res = await fetch("/api/cv/demo")
     const data = await res.json()
 
     return {
