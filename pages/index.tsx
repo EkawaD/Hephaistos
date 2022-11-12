@@ -16,7 +16,7 @@ export default function Home() {
           color="gray"
           className="discordButton"
           size="xl"
-          onClick={() => signIn("discord", { callbackUrl: "https://hephaistos-ekawad.vercel.app/profil" })}
+          onClick={() => signIn("discord", { callbackUrl: "/profil" })}
         >
           <FaDiscord size={30} className="icon" />Se connecter avec Discord
         </Button>
