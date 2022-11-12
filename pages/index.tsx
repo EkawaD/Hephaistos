@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <>
       <div className="home">
-        <h1>Bienvenue sur Héphaïstos votre générateur de CV automatique !</h1>
+        <h1>Bienvenue sur Héphaïstos LOL votre générateur de CV automatique !</h1>
         <Button
           color="gray"
           className="discordButton"
