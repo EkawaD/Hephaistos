@@ -54,7 +54,7 @@ export default function Profil() {
         // classic: <ClassicCV />
     }
 
-
+    if (session.status === "unauthenticated") return <div className='redirect'> Please <a href="/" style={{ margin: "0.5rem" }}> Sign In </a> to view this page</div>
     if (!user) return <div>Loading ...</div>
     return (
 

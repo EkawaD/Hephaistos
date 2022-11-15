@@ -96,7 +96,8 @@ export default function Profil({ data }: { data: User }) {
 import { GetServerSideProps } from 'next'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-    const res = await fetch("/api/cv/demo")
+    const baseURl = process.env.NEXTAUTH_URL
+    const res = await fetch(`${baseURl}/api/cv/demo`)
     const data = await res.json()
 
     return {
