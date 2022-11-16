@@ -31,7 +31,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         form.on('error', err => reject(err));
         form.parse(req, () => { });
     }).catch(e => {
-        console.log(e);
         status = 500;
         resultBody = {
             status: 'fail', message: 'Upload error'

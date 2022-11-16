@@ -34,10 +34,13 @@ export default function Profil() {
 
     const updateData = async () => {
         try {
-            const baseURl = process.env.NEXTAUTH_URL
-            const res = await fetch(`${baseURl}/api/user/${user.id}`)
+            const res = await fetch(`/api/user/${user.id}`)
             const data = await res.json()
             setUser(data)
+            const templates = {
+                dev: <CV data={data} />,
+                // classic: <ClassicCV />
+            }
             setTemplate(templates[templateSelect.current.value])
             const lettre = user.lettres.find((l: Lettre) => l.title === refSelect.current.value)
             setLm(lettre)
