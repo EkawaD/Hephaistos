@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { promises as fs, readFile } from "fs";
-
-
-import { readFileSync } from 'fs';
 import path from "path";
 import formidable, { File } from 'formidable';
 
@@ -55,10 +52,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             const tempPath = file[1].filepath;
             // await fs.rename(tempPath, targetPath + file[1].originalFilename);
             readFile(tempPath, (err, data) => {
-    
+
                 // Write the file
                 fs.writeFile(targetPath + file[1].originalFilename, data);
-    
+
                 // Delete the file
                 fs.unlink(tempPath);
             });

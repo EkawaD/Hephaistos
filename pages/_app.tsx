@@ -29,8 +29,6 @@ export default function App(props: AppProps) {
       </Head>
 
       <SessionProvider session={session}>
-
-
         <NotificationsProvider position="bottom-right" zIndex={2077} limit={5}>
           <Component {...pageProps} />
         </NotificationsProvider>

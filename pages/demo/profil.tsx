@@ -14,8 +14,14 @@ import LettreM from '../../components/LM'
 
 export default function Profil({ data }: { data: User }) {
 
+    const session = {
+        data: {
+            user: data,
+        },
+        status: "authenticated"
+    }
 
-    const [user, setUser] = useState<User>(data);
+    const [user, setUser] = useState<User>();
     const [opened, setOpened] = useState(false)
     const [lm, setLm] = useState<Lettre>()
     const [refs, setRefs] = useState([""])
@@ -23,11 +29,20 @@ export default function Profil({ data }: { data: User }) {
     const [shouldRender, setShouldRender] = useState(false)
 
     useEffect(() => {
+        setUser(session.data ? session.data.user as User : undefined)
         setShouldRender(false)
-    }, [shouldRender])
+
+    }, [shouldRender, session])
 
     const updateData = async () => {
         try {
+            const res = await fetch(`/api/user/${user.id}`)
+            const data = await res.json()
+            setUser(data)
+            const templates = {
+                dev: <CV data={data} />,
+                // classic: <ClassicCV />
+            }
             setTemplate(templates[templateSelect.current.value])
             const lettre = user.lettres.find((l: Lettre) => l.title === refSelect.current.value)
             setLm(lettre)
@@ -40,10 +55,8 @@ export default function Profil({ data }: { data: User }) {
     const componentRef = useRef(null);
     const refSelect = useRef(null)
     const templateSelect = useRef(null)
-    const templates = {
-        dev: <CV data={user} />,
-        // classic: <ClassicCV />
-    }
+
+
 
 
     if (!user) return <div>Loading ...</div>
@@ -51,7 +64,7 @@ export default function Profil({ data }: { data: User }) {
 
         <>
             <div className="cvForm">
-                <Select ref={templateSelect} data={Object.keys(templates)} label="Template CV" />
+                <Select ref={templateSelect} data={["dev"]} label="Template CV" />
                 <Select ref={refSelect} data={user.lettres.map((l: Lettre) => l.title)} label="Lettre de motivation" />
                 <MultiSelect value={refs} onChange={setRefs} data={user.refs.map((r) => r.file)} label="Références" />
                 <Button color="dark" className="preview" onClick={() => updateData()}>Preview</Button>

@@ -34,7 +34,8 @@ export default function Profil() {
 
     const updateData = async () => {
         try {
-            const res = await fetch(`/api/user/${user.id}`)
+            const baseURl = process.env.NEXTAUTH_URL
+            const res = await fetch(`${baseURl}/api/user/${user.id}`)
             const data = await res.json()
             setUser(data)
             setTemplate(templates[templateSelect.current.value])

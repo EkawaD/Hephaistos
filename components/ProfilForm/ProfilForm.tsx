@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 export default function ProfilForm({ user }: { user: User }) {
 
     const router = useRouter()
-    const isDemo = router.pathname.startsWith("/demo")
 
     const handleFile = async (formData) => {
 
@@ -28,27 +27,17 @@ export default function ProfilForm({ user }: { user: User }) {
 
     const handleSubmit = async (profil: Profil) => {
         try {
-            if (!isDemo) {
-                if (user.profil !== null) {
+            if (user.profil !== null) {
 
-                    const res = await fetch(`/api/profil/${user.profil.id}`, {
-                        method: "PUT",
-                        headers: {
-                            Authorization: "application/json",
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ ...profil, userId: user.id })
-                    });
-                } else {
-                    const res = await fetch(`/api/profil`, {
-                        method: "POST",
-                        headers: {
-                            Authorization: "application/json",
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ ...profil, userId: user.id })
-                    });
-                }
+                const res = await fetch(`/api/profil/${user.profil.id}`, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: "application/json",
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ ...profil, userId: user.id })
+                });
+
             }
             showNotification({
                 title: 'Great success 😎 !',
@@ -141,50 +130,50 @@ export default function ProfilForm({ user }: { user: User }) {
                         title={"Expériences"}
                         items={user.experiences}
                         schema={experienceSchema}
-                        baseURL={!isDemo ? "/api/experience" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/experience"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Diplome>
                         title={"Diplômes"}
                         items={user.diplomes}
                         schema={diplomeSchema}
-                        baseURL={!isDemo ? "/api/diplome" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/diplome"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Skill>
                         title={"Compétences"}
                         items={user.skills}
                         schema={skillSchema}
-                        baseURL={!isDemo ? "/api/skill" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/skill"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Hobby>
                         title={"Hobby"}
                         items={user.hobbies}
                         schema={hobbySchema}
-                        baseURL={!isDemo ? "/api/hobby" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/hobby"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Lettre>
                         title={"Lettres de motivation"}
                         items={user.lettres}
                         schema={lettreSchema}
-                        baseURL={!isDemo ? "/api/lettre" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/lettre"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Ref>
                         title={"Références PDF"}
                         items={user.refs}
                         schema={refSchema}
-                        baseURL={!isDemo ? "/api/ref" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/ref"}
+                        addValue={{ userId: user.id }}
                     />
                     <CrudTable<Project>
                         title={"Projets"}
                         items={user.projects}
                         schema={projectSchema}
-                        baseURL={!isDemo ? "/api/project" : undefined}
-                        addValue={!isDemo ? { userId: user.id } : undefined}
+                        baseURL={"/api/project"}
+                        addValue={{ userId: user.id }}
                     />
                 </div>
 

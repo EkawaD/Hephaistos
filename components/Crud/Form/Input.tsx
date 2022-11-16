@@ -154,7 +154,7 @@ export default function Input({ type, name, form, children, selectData, property
                 <>
                     <Group className={classes.fileInput}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img alt="picture of the project" src={objectURL ? objectURL : form.values[name] as string} />
+                        <img alt="Photo de profil" src={objectURL ? objectURL : form.values[name] as string} />
                         <FileInput
                             label={children}
                             uploadFileName="theFiles"
