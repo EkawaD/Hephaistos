@@ -11,7 +11,7 @@ const nextConfig = {
       {
         source: "/api/(.*)",
         headers: [
-        { key: "Access-Control-Allow-Origin", value: "http://localhost:5173" },
+        { key: "Access-Control-Allow-Origin", value: "https://portfolio-ekawad.vercel.app/" },
         ]
       }
     ]
